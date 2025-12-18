@@ -1,0 +1,135 @@
+# ============================================
+# Gmsh 项目 .gitignore
+# ============================================
+
+# ------------ 构建目录 ------------
+build/
+build*/
+cmake-build-*/
+out/
+gmsh/
+
+# ------------ 编译产物 ------------
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.dSYM/
+
+# ------------ CMake 生成文件 ------------
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+compile_commands.json
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+
+# ------------ IDE 和编辑器 ------------
+# VS Code
+.vscode/
+*.code-workspace
+
+# CLion / JetBrains
+.idea/
+*.iml
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+
+# Visual Studio
+*.sln
+*.vcxproj*
+.vs/
+
+# Eclipse
+.project
+.cproject
+.settings/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim/Neovim
+*.swp
+*.swo
+*~
+tags
+.nvimrc
+.exrc
+
+# Emacs
+*~
+\#*\#
+.#*
+
+# ------------ 系统文件 ------------
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ------------ Python (API绑定) ------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+*.egg-info/
+dist/
+eggs/
+.eggs/
+
+# ------------ 临时文件 ------------
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup
+*.orig
+
+# ------------ Gmsh 特定 ------------
+# 网格文件（可选，取消注释如需忽略）
+# *.msh
+# *.msh2
+# *.msh4
+# *.vtk
+# *.stl
+# *.step
+# *.iges
+
+# 后处理文件
+# *.pos
+
+# ------------ 测试和基准输出 ------------
+Testing/
+benchmarks/*.msh
+benchmarks/*.pos
+
+# ------------ 文档生成 ------------
+doc/html/
+doc/latex/
+doc/texinfo/gmsh.info
+
+# ------------ 打包文件 ------------
+*.tar.gz
+*.zip
+*.dmg
+*.pkg
+*.deb
+*.rpm
