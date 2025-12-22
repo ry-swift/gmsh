@@ -132,13 +132,51 @@
 
 ---
 
-#### 第8-10周预览
+#### 第8周：数值计算模块
 
-| 周次 | 主题 | Days | 状态 |
-|------|------|------|------|
-| 第8周 | 数值计算模块 | 50-56 | ☐ |
-| 第9周 | 后处理与可视化 | 57-63 | ☐ |
-| 第10周 | 求解器与数值计算 | 64-70 | ☐ |
+| Day | 主题 | 学习文件 | 状态 |
+|-----|------|----------|------|
+| [Day 50](days/day-50.md) | 基函数系统概览 | BasisFactory.h, nodalBasis.h | ☐ |
+| [Day 51](days/day-51.md) | 数值积分 | GaussIntegration.h/cpp | ☐ |
+| [Day 52](days/day-52.md) | 层次基函数 | HierarchicalBasis*.h/cpp | ☐ |
+| [Day 53](days/day-53.md) | Jacobian基与条件数 | JacobianBasis.h, CondNumBasis.h | ☐ |
+| [Day 54](days/day-54.md) | Bezier基与几何表示 | bezierBasis.h, decasteljau.h | ☐ |
+| [Day 55](days/day-55.md) | 矩阵运算与数值工具 | fullMatrix.h, Numeric.h | ☐ |
+| [Day 56](days/day-56.md) | 第八周复习 | 综合练习 | ☐ |
+
+**里程碑**：理解有限元数值计算的基础设施
+
+---
+
+#### 第9周：后处理与可视化
+
+| Day | 主题 | 学习文件 | 状态 |
+|-----|------|----------|------|
+| [Day 57](days/day-57.md) | 后处理数据结构 | PViewData.h, PViewDataList.h | ☐ |
+| [Day 58](days/day-58.md) | PView视图系统 | PView.h, PViewOptions.h | ☐ |
+| [Day 59](days/day-59.md) | 数据插值与空间查询 | OctreePost.h, shapeFunctions.h | ☐ |
+| [Day 60](days/day-60.md) | 可视化渲染 | PViewVertexArrays.cpp, ColorTable.h | ☐ |
+| [Day 61](days/day-61.md) | 向量场可视化 | StreamLines.cpp, Particles.cpp | ☐ |
+| [Day 62](days/day-62.md) | 动画与时间步 | stepData, HarmonicToTime.cpp | ☐ |
+| [Day 63](days/day-63.md) | 第九周复习 | 综合练习 | ☐ |
+
+**里程碑**：理解后处理模块架构，能创建和操作可视化视图
+
+---
+
+#### 第10周：求解器与数值计算
+
+| Day | 主题 | 学习文件 | 状态 |
+|-----|------|----------|------|
+| [Day 64](days/day-64.md) | 求解器模块概述 | src/solver/目录结构 | ☐ |
+| [Day 65](days/day-65.md) | 线性系统求解 | linearSystem.h, linearSystemCSR.h | ☐ |
+| [Day 66](days/day-66.md) | 特征值问题 | eigenSolver.h, SLEPc集成 | ☐ |
+| [Day 67](days/day-67.md) | 有限元装配 | femTerm.h, dofManager.h | ☐ |
+| [Day 68](days/day-68.md) | 边界条件处理 | elasticitySolver.h | ☐ |
+| [Day 69](days/day-69.md) | 求解器后端 | linearSystemPETSc.h, linearSystemMUMPS.h | ☐ |
+| [Day 70](days/day-70.md) | 第十周复习 | 综合练习 | ☐ |
+
+**里程碑**：理解求解器模块架构，能进行简单的有限元求解
 
 ---
 
@@ -247,7 +285,34 @@ my-docs/
     ├── day-46.md      # Day 46: 网格质量度量
     ├── day-47.md      # Day 47: 网格优化算法
     ├── day-48.md      # Day 48: Netgen集成分析
-    └── day-49.md      # Day 49: 第七周复习
+    ├── day-49.md      # Day 49: 第七周复习
+    │
+    │── 第8周：数值计算模块
+    ├── day-50.md      # Day 50: 基函数系统概览
+    ├── day-51.md      # Day 51: 数值积分
+    ├── day-52.md      # Day 52: 层次基函数
+    ├── day-53.md      # Day 53: Jacobian基与条件数
+    ├── day-54.md      # Day 54: Bezier基与几何表示
+    ├── day-55.md      # Day 55: 矩阵运算与数值工具
+    ├── day-56.md      # Day 56: 第八周复习
+    │
+    │── 第9周：后处理与可视化
+    ├── day-57.md      # Day 57: 后处理数据结构
+    ├── day-58.md      # Day 58: PView视图系统
+    ├── day-59.md      # Day 59: 数据插值与空间查询
+    ├── day-60.md      # Day 60: 可视化渲染
+    ├── day-61.md      # Day 61: 向量场可视化
+    ├── day-62.md      # Day 62: 动画与时间步
+    ├── day-63.md      # Day 63: 第九周复习
+    │
+    │── 第10周：求解器与数值计算
+    ├── day-64.md      # Day 64: 求解器模块概述
+    ├── day-65.md      # Day 65: 线性系统求解
+    ├── day-66.md      # Day 66: 特征值问题
+    ├── day-67.md      # Day 67: 有限元装配
+    ├── day-68.md      # Day 68: 边界条件处理
+    ├── day-69.md      # Day 69: 求解器后端
+    └── day-70.md      # Day 70: 第十周复习
 ```
 
 ---
@@ -278,4 +343,4 @@ my-docs/
 
 ---
 
-*最后更新：2025-12-18*
+*最后更新：2025-12-19*
