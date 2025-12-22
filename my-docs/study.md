@@ -25,6 +25,16 @@
 #### Day 1：环境准备与第一次运行
 **学习目标**：成功编译Gmsh并运行第一个示例
 
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-09:30 | 30min | 阅读README.md和CREDITS.txt |
+| 09:30-10:00 | 30min | 阅读CLAUDE.md了解架构概览 |
+| 10:00-11:00 | 1h | 浏览官方文档，了解Gmsh功能全貌 |
+| 11:00-12:00 | 1h | 编译Gmsh（cmake + make） |
+| 14:00-14:30 | 30min | 运行GUI和t1.geo教程 |
+| 14:30-15:00 | 30min | 完成练习作业 |
+
 **上午（2小时）**：
 - [ ] 阅读项目README.md和CREDITS.txt，了解项目历史
 - [ ] 阅读CLAUDE.md了解项目架构概览
@@ -41,6 +51,16 @@
 - [ ] 运行GUI验证：`./gmsh`
 - [ ] 运行第一个教程：`./gmsh ../tutorials/t1.geo`
 
+**练习作业**：
+1. 【基础】在GUI中打开t1.geo，观察几何和网格的生成过程
+2. 【进阶】修改cmake命令，尝试使用`-DENABLE_FLTK=0`编译无GUI版本，对比差异
+3. 【挑战】查看`gmsh --help`输出，记录至少10个有用的命令行参数
+
+**今日检查点**：
+- [ ] 能成功执行`./gmsh --version`显示版本号
+- [ ] 能在GUI中打开t1.geo并生成2D网格
+- [ ] 理解Gmsh的四大模块（几何、网格、求解器、后处理）
+
 **产出**：编译成功，能打开GUI界面
 
 ---
@@ -49,6 +69,14 @@
 **学习目标**：掌握点、线、面的基本创建
 
 **文件**：`tutorials/t1.geo`（144行）
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-10:00 | 1h | 逐行阅读t1.geo，做注释笔记 |
+| 10:00-11:00 | 1h | 学习Point、Line、Curve Loop、Plane Surface |
+| 11:00-12:00 | 1h | 动手修改t1.geo，观察变化 |
+| 14:00-15:00 | 1h | 完成练习作业并验证 |
 
 **上午（2小时）**：
 - [ ] 逐行阅读t1.geo，理解每条命令的含义
@@ -67,6 +95,37 @@
   gmsh t1.geo -3    # 3D网格
   ```
 
+**练习作业**：
+1. 【基础】创建一个边长为1.0的正方形平面，保存为`square.geo`
+   ```geo
+   // 提示：需要4个点、4条线、1个曲线环、1个平面
+   Point(1) = {0, 0, 0, 0.1};
+   // ... 补充完整
+   ```
+2. 【进阶】创建一个等边三角形，顶点坐标自定义，保存为`triangle.geo`
+3. 【挑战】创建一个带圆形孔的正方形板（提示：使用Circle命令）
+
+**今日检查点**：
+- [ ] 理解Point的4个参数含义（x, y, z, mesh_size）
+- [ ] 能解释Curve Loop中数字正负号的意义
+- [ ] 能独立创建简单的2D几何并生成网格
+
+**参考代码（正方形）**：
+```geo
+// square.geo - 正方形示例
+lc = 0.1;  // 网格尺寸
+Point(1) = {0, 0, 0, lc};
+Point(2) = {1, 0, 0, lc};
+Point(3) = {1, 1, 0, lc};
+Point(4) = {0, 1, 0, lc};
+Line(1) = {1, 2};
+Line(2) = {2, 3};
+Line(3) = {3, 4};
+Line(4) = {4, 1};
+Curve Loop(1) = {1, 2, 3, 4};
+Plane Surface(1) = {1};
+```
+
 **产出**：能独立编写简单的2D几何脚本
 
 ---
@@ -75,6 +134,14 @@
 **学习目标**：掌握变换操作和3D几何
 
 **文件**：`tutorials/t2.geo`（122行）
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-10:00 | 1h | 学习t2.geo的变换操作 |
+| 10:00-11:00 | 1h | 学习Extrude拉伸创建3D几何 |
+| 11:00-12:00 | 1h | 学习t3.geo的ONELAB参数化 |
+| 14:00-15:00 | 1h | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习变换操作：
@@ -89,6 +156,20 @@
 - [ ] 实验挤出网格的不同模式
 - [ ] 练习：创建一个带孔的3D方块
 
+**练习作业**：
+1. 【基础】将Day2的正方形拉伸成高度为0.5的长方体
+   ```geo
+   // 提示：使用Extrude
+   Extrude {0, 0, 0.5} { Surface{1}; }
+   ```
+2. 【进阶】创建一个L型支架（两个长方体的组合）
+3. 【挑战】创建一个带通孔的圆柱体（先创建带孔的圆形面，再拉伸）
+
+**今日检查点**：
+- [ ] 理解Extrude返回值的含义（新创建的实体列表）
+- [ ] 能使用Rotate进行几何旋转
+- [ ] 理解DefineConstant参数化的用法
+
 **产出**：能创建简单的3D几何模型
 
 ---
@@ -97,6 +178,14 @@
 **学习目标**：理解网格大小控制机制
 
 **文件**：`tutorials/t4.geo`, `tutorials/t5.geo`
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-10:00 | 1h | 学习t4.geo的内置函数和孔洞创建 |
+| 10:00-11:00 | 1h | 学习t5.geo的宏定义和循环 |
+| 11:00-12:00 | 1h | 实验不同MeshSize设置的效果 |
+| 14:00-15:00 | 1h | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习t4.geo（147行）：
@@ -111,14 +200,37 @@
   - 循环语句（For/EndFor）
 - [ ] 实验不同的MeshSize设置
 
+**练习作业**：
+1. 【基础】使用For循环创建10个等距排列的点
+   ```geo
+   For i In {1:10}
+     Point(i) = {i*0.1, 0, 0, 0.05};
+   EndFor
+   ```
+2. 【进阶】创建一个3×3的点阵网格（使用嵌套For循环）
+3. 【挑战】定义一个Macro来创建参数化的矩形，然后调用3次创建不同大小的矩形
+
+**今日检查点**：
+- [ ] 理解Mesh.CharacteristicLengthMin/Max的作用
+- [ ] 能使用For/EndFor创建重复几何
+- [ ] 能定义和调用Macro
+
 **产出**：掌握基本的网格大小控制
 
 ---
 
-#### Day 5：瞬间网格与背景网格
+#### Day 5：结构化网格与背景网格
 **学习目标**：掌握结构化网格生成
 
 **文件**：`tutorials/t6.geo`, `tutorials/t7.geo`
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-10:30 | 1.5h | 学习t6.geo的Transfinite系列命令 |
+| 10:30-11:30 | 1h | 学习t7.geo的背景网格 |
+| 11:30-12:00 | 30min | 对比结构化与非结构化网格差异 |
+| 14:00-15:00 | 1h | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习t6.geo（86行）：
@@ -133,6 +245,22 @@
   - 从外部文件加载背景网格
 - [ ] 练习：创建带有均匀分布节点的规则网格
 
+**练习作业**：
+1. 【基础】创建一个10×10的结构化正方形网格
+   ```geo
+   // 提示
+   Transfinite Curve {1, 2, 3, 4} = 11;  // 每边11个点（10个单元）
+   Transfinite Surface {1};
+   Recombine Surface {1};  // 转换为四边形
+   ```
+2. 【进阶】创建一个结构化的六面体网格（长方体）
+3. 【挑战】使用Progression参数创建边界层加密的网格（边缘密中间疏）
+
+**今日检查点**：
+- [ ] 理解Transfinite Curve的参数含义（节点数、Progression、Bump）
+- [ ] 能区分三角形网格和四边形网格的适用场景
+- [ ] 理解背景网格如何影响网格尺寸
+
 **产出**：能创建结构化网格
 
 ---
@@ -141,6 +269,14 @@
 **学习目标**：学会导入STEP/IGES文件
 
 **文件**：`tutorials/t8.geo`
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-10:00 | 1h | 学习t8.geo的Merge命令 |
+| 10:00-11:00 | 1h | 了解STEP/IGES格式特点 |
+| 11:00-12:00 | 1h | 导入examples中的CAD文件实验 |
+| 14:00-15:00 | 1h | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习t8.geo（129行）：
@@ -154,12 +290,35 @@
   - `examples/boolean/as1-tu-203.stp`
 - [ ] 学习CAD文件的网格化流程
 
+**练习作业**：
+1. 【基础】导入`examples/boolean/as1-tu-203.stp`并生成表面网格
+   ```geo
+   Merge "examples/boolean/as1-tu-203.stp";
+   Surface Loop(1) = Surface{:};  // 获取所有表面
+   // 生成2D网格：gmsh file.geo -2
+   ```
+2. 【进阶】导入一个STEP文件，设置不同区域的网格大小
+3. 【挑战】导入CAD文件后，修复几何（使用Coherence命令）并生成高质量网格
+
+**今日检查点**：
+- [ ] 理解Merge命令的用法
+- [ ] 能识别导入CAD文件后的几何实体
+- [ ] 了解常见CAD导入问题（如小面、间隙）
+
 **产出**：能导入和网格化外部CAD模型
 
 ---
 
 #### Day 7：第一周复习与实践
 **学习目标**：巩固基础概念
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-10:00 | 1h | 复习t1-t8核心概念 |
+| 10:00-11:00 | 1h | 整理学习笔记和命令速查表 |
+| 11:00-12:00 | 1h | 完成综合练习项目 |
+| 14:00-15:00 | 1h | 自我评估和预览下周内容 |
 
 **上午（2小时）**：
 - [ ] 复习t1-t8的核心概念
@@ -172,7 +331,58 @@
   - 导出MSH文件
 - [ ] 预览下周学习内容
 
+**综合项目：带圆孔的矩形板**
+```geo
+// plate_with_hole.geo
+// 目标：创建一个100x50的矩形板，中心有直径20的圆孔
+
+SetFactory("OpenCASCADE");  // 使用OCC内核方便布尔运算
+
+// 参数定义
+plate_length = 100;
+plate_width = 50;
+hole_radius = 10;
+mesh_size = 2.0;
+
+// 创建矩形和圆
+Rectangle(1) = {0, 0, 0, plate_length, plate_width};
+Disk(2) = {plate_length/2, plate_width/2, 0, hole_radius};
+
+// 布尔差集（矩形减去圆）
+BooleanDifference{ Surface{1}; Delete; }{ Surface{2}; Delete; }
+
+// 设置网格大小
+MeshSize{ PointsOf{ Surface{:}; } } = mesh_size;
+
+// 生成网格：gmsh plate_with_hole.geo -2 -o plate.msh
+```
+
+**第一周检查点（自我评估）**：
+- [ ] 能解释Point、Line、Curve Loop、Plane Surface的关系
+- [ ] 能使用Extrude创建3D几何
+- [ ] 能使用Transfinite创建结构化网格
+- [ ] 能导入外部CAD文件并生成网格
+- [ ] 完成3个以上独立练习项目
+
 **产出**：能独立完成简单的网格生成任务
+
+---
+
+### 🏆 第一周里程碑
+
+**完成标准**：
+1. ✅ 成功编译Gmsh并熟悉GUI界面
+2. ✅ 掌握GEO脚本基本语法（Point、Line、Surface、Volume）
+3. ✅ 能创建简单的2D/3D几何并生成网格
+4. ✅ 理解结构化网格与非结构化网格的区别
+5. ✅ 能导入外部CAD文件
+
+**作品集要求**：
+- square.geo - 正方形
+- triangle.geo - 三角形
+- box.geo - 长方体（拉伸创建）
+- structured_mesh.geo - 结构化网格示例
+- plate_with_hole.geo - 综合项目
 
 ---
 
@@ -182,6 +392,16 @@
 **学习目标**：掌握高级几何操作
 
 **文件**：`tutorials/t9.geo`
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-09:45 | 45min | 精读t9.geo，理解Coherence命令 |
+| 09:45-10:30 | 45min | 学习Split Curve曲线分割操作 |
+| 10:30-11:15 | 45min | 学习Compound复合实体概念 |
+| 11:15-12:00 | 45min | 手动实验各种缝合场景 |
+| 14:00-14:45 | 45min | 实验复合曲面网格生成 |
+| 14:45-15:30 | 45min | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习t9.geo（65行）：
@@ -193,6 +413,47 @@
 - [ ] 实验复合曲面和复合体的网格生成
 - [ ] 理解这些操作对网格质量的影响
 
+**练习作业**：
+1. 【基础】创建两个相邻的正方形，使用Coherence命令缝合共享边界
+   ```geo
+   // 练习：创建两个相邻正方形并缝合
+   Point(1) = {0, 0, 0, 0.1};
+   Point(2) = {1, 0, 0, 0.1};
+   Point(3) = {1, 1, 0, 0.1};
+   Point(4) = {0, 1, 0, 0.1};
+   // 第二个正方形，与第一个共享一条边
+   Point(5) = {2, 0, 0, 0.1};
+   Point(6) = {2, 1, 0, 0.1};
+   // 创建线和面，然后使用Coherence
+   // TODO: 完成练习
+   ```
+
+2. 【进阶】使用Split Curve在曲线中间插入一个点，观察对网格的影响
+   ```geo
+   // 练习：曲线分割
+   Point(1) = {0, 0, 0, 0.1};
+   Point(2) = {2, 0, 0, 0.1};
+   Line(1) = {1, 2};
+   // 在曲线中点处分割
+   Point(10) = {1, 0, 0, 0.05};  // 分割点，网格更细
+   Split Curve {1} Point {10};
+   // 观察分割后的曲线编号变化
+   ```
+
+3. 【挑战】创建一个L形区域，使用Compound Surface将其作为单一曲面进行网格划分
+   ```geo
+   // 挑战：L形复合曲面
+   // 提示：
+   // 1. 创建两个矩形面（竖直部分和水平部分）
+   // 2. 使用Compound Surface合并
+   // 3. 对比合并前后的网格质量
+   ```
+
+**检查点**：
+- [ ] 理解Coherence何时自动执行、何时需要手动调用
+- [ ] 理解Split Curve对网格节点分布的影响
+- [ ] 理解Compound Surface的优缺点
+
 **产出**：掌握几何修复和组合技术
 
 ---
@@ -201,6 +462,18 @@
 **学习目标**：深入理解Field系统
 
 **文件**：`tutorials/t10.geo`（117行）
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-09:30 | 30min | 学习Distance场的概念和用法 |
+| 09:30-10:00 | 30min | 学习Threshold场的阈值控制 |
+| 10:00-10:30 | 30min | 学习MathEval场的数学表达式 |
+| 10:30-11:00 | 30min | 学习Box场的区域控制 |
+| 11:00-12:00 | 1h | 精读t10.geo完整代码 |
+| 14:00-14:30 | 30min | 学习Min/Max场组合 |
+| 14:30-15:00 | 30min | 学习Restrict场的范围限制 |
+| 15:00-16:00 | 1h | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习各种Field类型：
@@ -215,6 +488,80 @@
   - Restrict - 限制范围
 - [ ] 练习：创建局部加密的网格
 
+**练习作业**：
+1. 【基础】创建一个正方形，在中心点附近使用Distance场加密网格
+   ```geo
+   // 练习：距离场控制网格密度
+   SetFactory("OpenCASCADE");
+   Rectangle(1) = {0, 0, 0, 2, 2};
+
+   // 在中心创建一个点用于距离计算
+   Point(100) = {1, 1, 0};
+
+   // 创建距离场
+   Field[1] = Distance;
+   Field[1].PointsList = {100};
+
+   // 创建阈值场：距离近时网格细，距离远时网格粗
+   Field[2] = Threshold;
+   Field[2].InField = 1;
+   Field[2].SizeMin = 0.02;   // 最小网格尺寸
+   Field[2].SizeMax = 0.2;    // 最大网格尺寸
+   Field[2].DistMin = 0.1;    // 开始过渡距离
+   Field[2].DistMax = 0.5;    // 结束过渡距离
+
+   Background Field = 2;
+   Mesh 2;
+   ```
+
+2. 【进阶】使用MathEval创建一个网格密度随Y坐标变化的场
+   ```geo
+   // 练习：数学表达式场
+   SetFactory("OpenCASCADE");
+   Rectangle(1) = {0, 0, 0, 1, 1};
+
+   // 网格尺寸随Y线性变化：底部细(0.01)，顶部粗(0.1)
+   Field[1] = MathEval;
+   Field[1].F = "0.01 + 0.09 * y";  // y从0到1
+
+   Background Field = 1;
+   Mesh 2;
+   // 观察网格在Y方向的渐变效果
+   ```
+
+3. 【挑战】组合多个Field：在矩形的左下角和右上角同时加密
+   ```geo
+   // 挑战：多场组合
+   SetFactory("OpenCASCADE");
+   Rectangle(1) = {0, 0, 0, 2, 2};
+
+   // 左下角加密点
+   Point(100) = {0, 0, 0};
+   // 右上角加密点
+   Point(101) = {2, 2, 0};
+
+   // 为每个点创建距离场和阈值场
+   Field[1] = Distance;
+   Field[1].PointsList = {100};
+   Field[2] = Threshold;
+   Field[2].InField = 1;
+   Field[2].SizeMin = 0.02;
+   Field[2].SizeMax = 0.15;
+   Field[2].DistMin = 0.1;
+   Field[2].DistMax = 0.5;
+
+   // TODO: 为Point(101)创建类似的场(Field[3], Field[4])
+   // TODO: 使用Min场组合两个阈值场
+   // Field[5] = Min;
+   // Field[5].FieldsList = {2, 4};
+   // Background Field = 5;
+   ```
+
+**检查点**：
+- [ ] 能解释Distance、Threshold、MathEval、Box四种场的作用
+- [ ] 理解Min/Max场如何组合多个场
+- [ ] 能根据需求选择合适的场类型
+
 **产出**：能使用Field控制复杂的网格分布
 
 ---
@@ -223,6 +570,17 @@
 **学习目标**：掌握自适应网格技术
 
 **文件**：`tutorials/t11.geo`, `tutorials/t12.geo`
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-09:45 | 45min | 精读t11.geo，理解网格细化原理 |
+| 09:45-10:30 | 45min | 学习RefineByField命令 |
+| 10:30-11:15 | 45min | 实验不同细化策略的效果 |
+| 11:15-12:00 | 45min | 记录笔记，总结细化方法 |
+| 14:00-14:45 | 45min | 精读t12.geo，学习各向异性网格 |
+| 14:45-15:30 | 45min | 理解混合单元网格概念 |
+| 15:30-16:00 | 30min | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习t11.geo（69行）：
@@ -235,6 +593,74 @@
   - 混合单元网格
 - [ ] 理解各向异性对数值模拟的意义
 
+**练习作业**：
+1. 【基础】创建一个粗网格，然后使用RefineMesh命令整体细化
+   ```geo
+   // 练习：整体网格细化
+   SetFactory("OpenCASCADE");
+   Rectangle(1) = {0, 0, 0, 1, 1};
+
+   // 先生成粗网格
+   Mesh.CharacteristicLengthMax = 0.3;
+   Mesh 2;
+
+   // 整体细化（每个三角形分成4个）
+   RefineMesh;
+
+   // 再次细化
+   RefineMesh;
+
+   // 观察细化前后的单元数量变化
+   ```
+
+2. 【进阶】使用RefineByField根据场条件局部细化
+   ```geo
+   // 练习：基于场的局部细化
+   SetFactory("OpenCASCADE");
+   Rectangle(1) = {0, 0, 0, 2, 2};
+
+   // 创建一个Box场，定义细化区域（中心1x1区域）
+   Field[1] = Box;
+   Field[1].VIn = 0.05;    // 盒内尺寸
+   Field[1].VOut = 0.2;    // 盒外尺寸
+   Field[1].XMin = 0.5;
+   Field[1].XMax = 1.5;
+   Field[1].YMin = 0.5;
+   Field[1].YMax = 1.5;
+
+   Background Field = 1;
+   Mesh 2;
+
+   // 可选：进一步细化
+   // RefineByField[1];
+   ```
+
+3. 【挑战】创建一个细长矩形，使用各向异性网格使单元沿长边拉伸
+   ```geo
+   // 挑战：各向异性网格
+   // 提示：细长结构（如边界层）适合各向异性网格
+   SetFactory("OpenCASCADE");
+
+   // 创建10:1的细长矩形
+   Rectangle(1) = {0, 0, 0, 10, 1};
+
+   // 设置各向异性选项
+   Mesh.CharacteristicLengthExtendFromBoundary = 1;
+   Mesh.CharacteristicLengthMin = 0.1;
+   Mesh.CharacteristicLengthMax = 1.0;
+
+   // 使用各向异性算法
+   // Mesh.Algorithm = 7;  // BAMG算法支持各向异性
+
+   Mesh 2;
+   // 观察单元形状是否沿长边拉伸
+   ```
+
+**检查点**：
+- [ ] 理解RefineMesh和RefineByField的区别
+- [ ] 理解各向异性网格在CFD边界层中的应用
+- [ ] 能根据物理问题选择合适的网格类型
+
 **产出**：掌握自适应和各向异性网格生成
 
 ---
@@ -243,6 +669,18 @@
 **学习目标**：学习工程实用的边界层网格
 
 **文件**：`tutorials/t13.geo`（65行）
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-09:45 | 45min | 理解边界层网格的物理意义（CFD/传热） |
+| 09:45-10:30 | 45min | 精读t13.geo，学习BoundaryLayer Field |
+| 10:30-11:15 | 45min | 学习增长比、层数、厚度参数 |
+| 11:15-12:00 | 45min | 实验边界层与自由网格的过渡 |
+| 14:00-14:30 | 30min | 学习Mesh.Algorithm选项 |
+| 14:30-15:00 | 30min | 学习Mesh.Optimize优化级别 |
+| 15:00-15:30 | 30min | 学习Mesh.SmoothNormals |
+| 15:30-16:00 | 30min | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习边界层概念：
@@ -257,6 +695,83 @@
   - Mesh.SmoothNormals - 法向平滑
 - [ ] 实验不同优化参数的效果
 
+**练习作业**：
+1. 【基础】为一个圆柱体的外表面创建边界层网格
+   ```geo
+   // 练习：圆柱边界层
+   SetFactory("OpenCASCADE");
+
+   // 创建圆柱
+   Cylinder(1) = {0, 0, 0, 0, 0, 2, 0.5};  // 半径0.5，高度2
+
+   // 获取圆柱侧面的tag（通常是2）
+   // 使用GUI的Tools -> Visibility查看
+
+   // 定义边界层场
+   Field[1] = BoundaryLayer;
+   Field[1].CurvesList = {};      // 边界曲线列表
+   Field[1].PointsList = {};       // 边界点列表
+   Field[1].SurfacesList = {2};    // 边界面列表（圆柱侧面）
+   Field[1].Thickness = 0.05;      // 边界层总厚度
+   Field[1].Ratio = 1.2;           // 增长比
+   Field[1].NbLayers = 5;          // 层数
+   Field[1].AnisoMax = 1.0;        // 最大各向异性比
+   Field[1].Quads = 1;             // 使用四边形（1）还是三角形（0）
+
+   BoundaryLayer Field = 1;
+   Mesh 3;
+   ```
+
+2. 【进阶】对比不同网格算法的效果
+   ```geo
+   // 练习：网格算法对比
+   SetFactory("OpenCASCADE");
+   Rectangle(1) = {0, 0, 0, 1, 1};
+
+   // 算法选项：
+   // 1 = MeshAdapt
+   // 2 = Automatic
+   // 5 = Delaunay
+   // 6 = Frontal-Delaunay
+   // 7 = BAMG
+   // 8 = Frontal-Delaunay for Quads
+   // 9 = Packing of Parallelograms
+
+   Mesh.Algorithm = 5;  // 尝试修改这个值
+   Mesh.CharacteristicLengthMax = 0.1;
+   Mesh 2;
+
+   // 生成网格后，在GUI中查看"Tools -> Statistics"
+   // 对比不同算法的：单元数量、质量分布、生成时间
+   ```
+
+3. 【挑战】为NACA翼型截面创建带边界层的网格（简化版）
+   ```geo
+   // 挑战：简化翼型边界层
+   SetFactory("OpenCASCADE");
+
+   // 简化翼型：使用椭圆近似
+   Disk(1) = {0, 0, 0, 1, 0.12};  // 长轴1，短轴0.12
+
+   // 外部流场区域
+   Rectangle(2) = {-2, -1.5, 0, 5, 3};
+
+   // 布尔差集：流场减去翼型
+   BooleanDifference(3) = {Surface{2}; Delete;}{Surface{1}; Delete;};
+
+   // 为翼型边界创建边界层
+   // TODO: 设置BoundaryLayer Field
+   // 提示：需要找到翼型边界的曲线编号
+
+   Mesh.CharacteristicLengthMax = 0.2;
+   Mesh 2;
+   ```
+
+**检查点**：
+- [ ] 理解边界层在CFD中的重要性（壁面附近速度梯度大）
+- [ ] 能设置合理的增长比（通常1.1-1.3）
+- [ ] 理解不同网格算法的适用场景
+
 **产出**：能生成带边界层的高质量网格
 
 ---
@@ -265,6 +780,17 @@
 **学习目标**：掌握OCC的强大功能
 
 **文件**：`tutorials/t16.geo`, `tutorials/t18.geo`
+
+**每日时间分配（4小时）**：
+| 时段 | 时长 | 任务 |
+|------|------|------|
+| 09:00-09:30 | 30min | 理解CAD内核的概念，对比内置vs OCC |
+| 09:30-10:15 | 45min | 精读t16.geo，学习布尔运算 |
+| 10:15-11:00 | 45min | 实验Union/Difference/Intersection |
+| 11:00-12:00 | 1h | 用布尔运算创建复杂几何 |
+| 14:00-14:45 | 45min | 精读t18.geo，学习Fillet/Chamfer |
+| 14:45-15:15 | 30min | 实验圆角和倒角效果 |
+| 15:15-16:00 | 45min | 完成练习作业 |
 
 **上午（2小时）**：
 - [ ] 学习t16.geo（83行）：
@@ -278,6 +804,80 @@
   - Fillet, Chamfer
   - 更复杂的布尔操作
 - [ ] 对比内置内核和OCC内核的差异
+
+**练习作业**：
+1. 【基础】使用布尔运算创建一个带圆孔的立方体
+   ```geo
+   // 练习：布尔差集
+   SetFactory("OpenCASCADE");
+
+   // 创建立方体
+   Box(1) = {0, 0, 0, 2, 2, 2};
+
+   // 创建贯穿的圆柱（比立方体稍长，确保完全贯穿）
+   Cylinder(2) = {1, 1, -0.1, 0, 0, 2.2, 0.3};
+
+   // 布尔差集：立方体减去圆柱
+   BooleanDifference(3) = {Volume{1}; Delete;}{Volume{2}; Delete;};
+
+   // 生成3D网格
+   Mesh 3;
+   ```
+
+2. 【进阶】创建两个相交的球体，并为交界处添加圆角
+   ```geo
+   // 练习：布尔并集 + 圆角
+   SetFactory("OpenCASCADE");
+
+   // 两个相交的球体
+   Sphere(1) = {0, 0, 0, 1};
+   Sphere(2) = {1.2, 0, 0, 1};  // 中心距1.2，有重叠
+
+   // 布尔并集
+   BooleanUnion(3) = {Volume{1}; Delete;}{Volume{2}; Delete;};
+
+   // 查找相交边界的边，添加圆角
+   // 使用GUI查看边的编号，或者用Fillet自动处理
+   // Fillet{3}{边编号列表}{圆角半径};
+
+   Mesh 3;
+   ```
+
+3. 【挑战】创建一个机械零件：带孔的法兰盘
+   ```geo
+   // 挑战：法兰盘
+   SetFactory("OpenCASCADE");
+
+   // 主体：圆盘
+   Cylinder(1) = {0, 0, 0, 0, 0, 0.5, 2};  // 半径2，高0.5
+
+   // 中心孔
+   Cylinder(2) = {0, 0, -0.1, 0, 0, 0.7, 0.5};  // 半径0.5
+
+   // 减去中心孔
+   BooleanDifference(3) = {Volume{1}; Delete;}{Volume{2}; Delete;};
+
+   // 创建6个螺栓孔（圆周均布）
+   For i In {0:5}
+       angle = i * Pi / 3;  // 60度间隔
+       x = 1.5 * Cos(angle);
+       y = 1.5 * Sin(angle);
+       Cylinder(10+i) = {x, y, -0.1, 0, 0, 0.7, 0.2};  // 半径0.2
+   EndFor
+
+   // 减去所有螺栓孔
+   BooleanDifference(100) = {Volume{3}; Delete;}{Volume{10:15}; Delete;};
+
+   // 可选：为孔边缘添加倒角
+   // Chamfer{100}{边列表}{倒角尺寸};
+
+   Mesh 3;
+   ```
+
+**检查点**：
+- [ ] 理解SetFactory("OpenCASCADE")的作用
+- [ ] 掌握三种布尔运算的语法和用途
+- [ ] 理解Delete选项的作用（删除原始几何）
 
 **产出**：能使用OCC创建复杂几何
 
@@ -1736,3 +2336,452 @@ src/plugin/Plugin.h
 
 *计划制定日期：2025-12-18*
 *预计完成日期：2026-04-18*（16周后）
+
+---
+
+# 附录
+
+## 附录A：Cookbook学习指南
+
+Gmsh官方提供了Cookbook文档（位于`doc/cookbook/`），以下是学习安排：
+
+### 几何相关章节（配合第1-2周学习）
+
+| 章节 | 主题 | 学习日 |
+|------|------|--------|
+| occ-demo.md | OpenCASCADE演示 | Day 12 |
+| holes.md | 创建孔洞 | Day 4 |
+| embed-point.md | 嵌入点、线、面 | Day 9 |
+| step.md | STEP导入 | Day 6 |
+| transforms.md | 坐标变换 | Day 3 |
+
+### 网格相关章节（配合第3-6周学习）
+
+| 章节 | 主题 | 学习日 |
+|------|------|--------|
+| mesh-sizes.md | 网格尺寸控制 | Day 4-5 |
+| size-fields.md | 尺寸场 | Day 9 |
+| transfinite.md | 结构化网格 | Day 5 |
+| extrude.md | 拉伸操作 | Day 3 |
+| quad.md | 四边形网格 | Day 5 |
+| anisotropic.md | 各向异性网格 | Day 10 |
+| background.md | 背景网格 | Day 5 |
+| partition.md | 网格分区 | Day 101-102 |
+| periodic.md | 周期性网格 | Day 105 |
+
+---
+
+## 附录B：扩展教程(x1-x7)详解
+
+位于`tutorials/c++/`目录，建议在第11周学习。
+
+### x1 - 几何和网格数据获取
+
+**文件**: `tutorials/c++/x1.cpp`
+
+**核心内容**:
+- 获取几何实体信息
+- 遍历网格节点和单元
+- 访问网格坐标数据
+
+```cpp
+// 示例：获取所有节点
+std::vector<std::size_t> nodeTags;
+std::vector<double> coord;
+gmsh::model::mesh::getNodes(nodeTags, coord);
+```
+
+### x2 - 网格导入与地形网格
+
+**文件**: `tutorials/c++/x2.cpp`
+
+**核心内容**:
+- 导入外部网格文件
+- 创建离散实体
+- 地形数据网格化
+
+### x3/x4 - 后处理数据导入
+
+**文件**: `tutorials/c++/x3.cpp`, `x4.cpp`
+
+**核心内容**:
+- 基于列表的数据导入
+- 基于模型的数据导入
+- 创建后处理视图
+
+### x5 - 参数化几何数据
+
+**文件**: `tutorials/c++/x5.cpp`
+
+**核心内容**:
+- 获取参数化坐标
+- 计算法向量
+- 获取曲率信息
+
+### x6 - 积分点与基函数
+
+**文件**: `tutorials/c++/x6.cpp`
+
+**核心内容**:
+- 获取高斯积分点
+- 计算Jacobian矩阵
+- 评估基函数值
+
+### x7 - 内部边和面数据
+
+**文件**: `tutorials/c++/x7.cpp`
+
+**核心内容**:
+- 获取内部边界
+- 识别接触面
+- 处理多材料模型
+
+---
+
+## 附录C：C++ API示例精选
+
+从`examples/api/`精选的20个典型案例：
+
+### 基础示例
+
+| 示例 | 文件 | 说明 |
+|------|------|------|
+| 最小示例 | simple.cpp | 最简单的API使用 |
+| 布尔运算 | boolean.cpp | CSG布尔操作 |
+| 六面体网格 | hex.cpp | 结构化六面体 |
+| 体网格 | volume.cpp | 3D网格生成 |
+
+### 高级示例
+
+| 示例 | 文件 | 说明 |
+|------|------|------|
+| 自适应网格 | adapt_mesh.cpp | 网格自适应 |
+| 网格分区 | partition.cpp | 并行分区 |
+| 周期性 | periodic.cpp | 周期性边界 |
+| 高阶单元 | high_order.cpp | 曲面单元 |
+
+### 工程应用
+
+| 示例 | Python参考 | 说明 |
+|------|------|------|
+| 边界层 | naca_boundary_layer_2d.py | NACA翼型 |
+| STL重网格 | remesh_stl.py | STL处理 |
+| 医学模型 | aneurysm.py | 复杂几何 |
+
+---
+
+## 附录D：学习检查点
+
+### 第一阶段检查点（第1-2周）
+
+**第1周末**：
+- [ ] 能成功编译Gmsh
+- [ ] 掌握GEO脚本基础语法
+- [ ] 能创建2D/3D几何
+- [ ] 能使用Transfinite创建结构化网格
+- [ ] 能导入CAD文件
+
+**第2周末**：
+- [ ] 掌握Field系统
+- [ ] 能生成边界层网格
+- [ ] 能使用OpenCASCADE内核
+- [ ] 能用C++ API完成网格生成
+- [ ] 完成5个以上独立项目
+
+### 第二阶段检查点（第3-6周）
+
+**第4周末**：
+- [ ] 能画出GEntity继承关系图
+- [ ] 理解GModel的数据组织
+- [ ] 能追踪CAD导入流程
+- [ ] 理解OCC集成机制
+
+**第6周末**：
+- [ ] 理解1D/2D/3D网格生成流程
+- [ ] 掌握BDS数据结构
+- [ ] 理解Delaunay算法实现
+- [ ] 能追踪完整的网格生成过程
+
+### 第三阶段检查点（第7-10周）
+
+**第10周末**：
+- [ ] 能解释各种网格算法的原理
+- [ ] 理解数值计算模块
+- [ ] 理解后处理和求解器框架
+- [ ] 能阅读任意模块源码
+
+### 第四阶段检查点（第11-16周）
+
+**第16周末**：
+- [ ] 完成3个以上实战项目
+- [ ] 能扩展Field或Plugin
+- [ ] 能进行源码级修改
+- [ ] 完成综合性项目
+
+---
+
+## 附录E：常见问题解答（FAQ）
+
+### 编译问题
+
+**Q1: cmake报错找不到OpenCASCADE**
+
+```bash
+# 解决方案：指定OCC路径
+cmake -DOCC_INCLUDE_DIR=/path/to/opencascade/include \
+      -DOCC_LIB_DIR=/path/to/opencascade/lib ..
+```
+
+**Q2: make时出现链接错误**
+
+```bash
+# 检查是否启用了正确的选项
+cmake -DENABLE_BUILD_DYNAMIC=1 -DENABLE_BUILD_SHARED=1 ..
+```
+
+**Q3: 运行时找不到共享库**
+
+```bash
+# macOS
+export DYLD_LIBRARY_PATH=/path/to/gmsh/build:$DYLD_LIBRARY_PATH
+# Linux
+export LD_LIBRARY_PATH=/path/to/gmsh/build:$LD_LIBRARY_PATH
+```
+
+### 网格生成问题
+
+**Q4: 网格质量差，有很多细长三角形**
+
+解决方案：
+1. 检查几何是否有小特征
+2. 使用`Mesh.CharacteristicLengthMin`限制最小尺寸
+3. 启用网格优化：`Mesh.Optimize = 1;`
+
+**Q5: 3D网格生成失败**
+
+常见原因：
+1. 表面网格有问题（先检查2D网格）
+2. 几何有小间隙或重叠
+3. 使用`Coherence;`修复几何
+
+**Q6: 边界层网格与自由网格过渡不平滑**
+
+```geo
+// 调整边界层参数
+Field[1].Ratio = 1.2;  // 减小增长比
+Field[1].FanPointsSizeFromCAD = 1;  // 从CAD获取尺寸
+```
+
+### API使用问题
+
+**Q7: C++ API编译时找不到头文件**
+
+```cmake
+# CMakeLists.txt中添加
+find_package(gmsh REQUIRED)
+target_link_libraries(your_target PRIVATE gmsh)
+```
+
+**Q8: API调用后几何不更新**
+
+```cpp
+// 需要调用synchronize
+gmsh::model::geo::synchronize();  // 内置内核
+gmsh::model::occ::synchronize();  // OCC内核
+```
+
+### 性能问题
+
+**Q9: 大模型网格生成很慢**
+
+解决方案：
+1. 使用并行：`-nt N`指定线程数
+2. 选择合适的算法：`Mesh.Algorithm3D = 1;`（Delaunay）
+3. 分区网格：先生成后分区
+
+**Q10: 内存使用过高**
+
+```geo
+// 减少内存使用
+Mesh.SaveAll = 0;  // 只保存物理群组
+Mesh.Binary = 1;   // 使用二进制格式
+```
+
+---
+
+## 附录F：学习笔记模板
+
+### 每日学习笔记模板
+
+```markdown
+# Day X 学习笔记
+
+**日期**：YYYY-MM-DD
+**学习时长**：X小时
+**学习文件**：tutorials/tX.geo
+
+## 今日学习目标
+- [ ] 目标1
+- [ ] 目标2
+- [ ] 目标3
+
+## 核心概念
+
+### 概念1：XXX
+- 定义：
+- 用法：
+- 示例代码：
+
+### 概念2：XXX
+- 定义：
+- 用法：
+- 示例代码：
+
+## 代码实践
+
+### 练习1
+```geo
+// 代码
+```
+**结果**：
+**问题**：
+**解决方案**：
+
+### 练习2
+// ...
+
+## 遇到的问题
+1. 问题描述
+   - 原因分析
+   - 解决方案
+
+## 明日计划
+- [ ] 计划1
+- [ ] 计划2
+
+## 知识点总结
+| 命令/概念 | 作用 | 示例 |
+|----------|------|------|
+| | | |
+```
+
+### 周总结模板
+
+```markdown
+# 第X周学习总结
+
+**日期范围**：YYYY-MM-DD ~ YYYY-MM-DD
+**累计学习时长**：XX小时
+
+## 本周完成内容
+- [x] Day X: ...
+- [x] Day X+1: ...
+...
+
+## 关键知识点
+1.
+2.
+3.
+
+## 作品集
+- file1.geo - 描述
+- file2.geo - 描述
+
+## 自我评估
+- 掌握程度：⭐⭐⭐⭐☆
+- 难点：
+- 需要复习：
+
+## 下周计划
+1.
+2.
+```
+
+---
+
+## 附录G：GEO命令速查表
+
+### 几何创建
+
+```geo
+// 点
+Point(tag) = {x, y, z, meshSize};
+
+// 线
+Line(tag) = {startPoint, endPoint};
+Circle(tag) = {startPoint, centerPoint, endPoint};
+Spline(tag) = {point1, point2, ...};
+BSpline(tag) = {point1, point2, ...};
+
+// 面
+Curve Loop(tag) = {curve1, curve2, ...};  // 负号表示反向
+Plane Surface(tag) = {curveLoop1, curveLoop2, ...};  // 第一个是外边界，其余是孔
+
+// 体
+Surface Loop(tag) = {surface1, surface2, ...};
+Volume(tag) = {surfaceLoop1, surfaceLoop2, ...};
+```
+
+### 几何操作
+
+```geo
+// 变换
+Translate {dx, dy, dz} { entities }
+Rotate {{ax, ay, az}, {px, py, pz}, angle} { entities }
+Symmetry {a, b, c, d} { entities }  // ax+by+cz+d=0平面对称
+Dilate {{cx, cy, cz}, factor} { entities }
+
+// 拉伸
+Extrude {dx, dy, dz} { entities }
+Extrude {{ax, ay, az}, {px, py, pz}, angle} { entities }  // 旋转拉伸
+
+// 布尔运算（需要OCC内核）
+BooleanUnion { object } { tool }
+BooleanDifference { object; Delete; } { tool; Delete; }
+BooleanIntersection { object } { tool }
+BooleanFragments { object } { tool }
+```
+
+### 网格控制
+
+```geo
+// 网格大小
+MeshSize { points } = size;
+Mesh.CharacteristicLengthMin = value;
+Mesh.CharacteristicLengthMax = value;
+
+// 结构化网格
+Transfinite Curve {curves} = numPoints;
+Transfinite Curve {curves} = numPoints Using Progression ratio;
+Transfinite Surface {surfaces};
+Transfinite Volume {volumes};
+Recombine Surface {surfaces};  // 转换为四边形
+
+// 网格算法
+Mesh.Algorithm = value;  // 1:MeshAdapt, 2:Auto, 5:Delaunay, 6:Frontal-Delaunay
+Mesh.Algorithm3D = value;  // 1:Delaunay, 4:Frontal, 7:MMG3D, 10:HXT
+```
+
+### 物理群组
+
+```geo
+Physical Point("name") = {points};
+Physical Curve("name") = {curves};
+Physical Surface("name") = {surfaces};
+Physical Volume("name") = {volumes};
+```
+
+---
+
+## 结语
+
+本学习计划涵盖了从Gmsh入门到精通源码的完整路径。建议：
+
+1. **循序渐进**：按计划顺序学习，不要跳过基础
+2. **多动手实践**：每天完成练习作业
+3. **做好笔记**：使用模板记录学习过程
+4. **及时复习**：每周末进行总结复习
+5. **解决问题**：遇到问题先查FAQ，再查官方文档
+6. **分享交流**：将学习成果分享给他人，加深理解
+
+祝学习顺利！🎉
