@@ -136,3 +136,7 @@ Physical Surface("My surface") = {1};
 //
 // See e.g. `t16.geo', `t18.geo', `t19.geo' or `t20.geo' for complete examples
 // based on OpenCASCADE, and `examples/boolean' for more.
+
+// Mesh.Algorithm = 8; // 用四边形填充
+
+// Mesh.RecombineAll = 1; // 重组所有面
