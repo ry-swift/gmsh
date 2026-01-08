@@ -133,3 +133,6 @@ doc/texinfo/gmsh.info
 *.pkg
 *.deb
 *.rpm
+.vscode/
+.claude/
+my-study/
